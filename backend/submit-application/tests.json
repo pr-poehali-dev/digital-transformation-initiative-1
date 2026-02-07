@@ -1,0 +1,50 @@
+{
+  "tests": [
+    {
+      "name": "Успешная отправка заявки",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Петров",
+        "phone": "+7 (999) 123-45-67",
+        "email": "ivan@example.com",
+        "car_name": "BMW X5 2022",
+        "car_price": 6890000,
+        "financing_type": "credit",
+        "initial_payment": 1000000,
+        "loan_term": 60,
+        "city": "Москва"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "application_id": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "OPTIONS (CORS preflight)",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Ошибка валидации - некорректный email",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван",
+        "phone": "+7 999 123 45 67",
+        "email": "invalid-email",
+        "car_name": "BMW X5",
+        "car_price": 5000000,
+        "financing_type": "credit"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "success": false
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

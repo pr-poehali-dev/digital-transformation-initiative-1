@@ -1,9 +1,14 @@
+import { useState } from "react"
 import { CreditCard, ArrowUpRight, Calendar, ChevronDown, Info } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { ApplicationModal } from "@/components/ApplicationModal"
 
 export function PaymentRolesCard() {
+  const [modalOpen, setModalOpen] = useState(false)
+
   return (
+    <>
     <div className="rounded-2xl bg-[#141414] border border-[#262626] p-6 flex flex-col">
       <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#1f1f1f] border border-[#2a2a2a]">
         <CreditCard className="h-5 w-5 text-gray-400" />
@@ -57,8 +62,21 @@ export function PaymentRolesCard() {
           </div>
         </div>
 
-        <Button className="w-full bg-[#252525] text-gray-400 hover:bg-[#2a2a2a] hover:text-white">Продолжить</Button>
+        <Button 
+          onClick={() => setModalOpen(true)}
+          className="w-full bg-violet-600 text-white hover:bg-violet-700"
+        >
+          Оформить кредит
+        </Button>
       </div>
     </div>
+
+    <ApplicationModal 
+      open={modalOpen} 
+      onOpenChange={setModalOpen}
+      carName="BMW X5 2022"
+      carPrice={6890000}
+    />
+    </>
   )
 }
